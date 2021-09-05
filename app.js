@@ -1,12 +1,45 @@
 const http = require('http');
-const port = process.env.PORT || 3000
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/html');
-  res.end('<h1>Hello World</h1>');
+const db = require('./models/mysql');
+
+const memoireRoutes = require('./routes/memoire.routes');
+const typeDocumentRoutes = require('./routes/typedocument.routes');
+
+const app = express();
+
+// Allow file upload
+app.use(fileUpload({
+    createParentPath: true
+}));
+
+// Allow cors
+app.use(cors());
+
+// Needed to limit for the validation of highlights
+app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
+app.use(bodyParser.json({limit: '200mb'}));
+
+// Sync database
+db.sequelize.sync();
+
+// Define main routes
+app.get('/api', (req, res) => {
+    res.json({
+        message: 'It works'
+    });
 });
 
-server.listen(port,() => {
-  console.log(`Server running at port `+port);
-});
+// Memoire routes api
+app.use('/api/memoires', memoireRoutes);
+
+// TypeDocument routes api
+app.use('/api/types', typeDocumentRoutes);
+
+// Launch the server
+const server = http.createServer(app);
+const port = process.env.PORT || 3000;
+server.listen(port);
