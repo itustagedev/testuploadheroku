@@ -9,7 +9,9 @@ exports.getActiveTypes = async (req, res) => {
     //     return res.status(403).send(err);
     // }
 
-    const types = await typeDocumentService.getActiveTypes();
-
+    // const types = await typeDocumentService.getActiveTypes();
+    const types = {
+        "types" : "ok"
+    }
     res.json(types);
 }
