@@ -11,7 +11,9 @@ exports.getActiveTypes = async (req, res) => {
 
     // const types = await typeDocumentService.getActiveTypes();
     const types = {
-        "types" : "ok"
+        "IDTYPEDOCUMENT" : "1",
+        "NOM TYPE" : "Memoire complet MC",
+        "STATUT_TYPE" : "ACTIVE"
     }
     res.json(types);
 }
