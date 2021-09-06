@@ -105,20 +105,20 @@ exports.saveMemoire = async (fileName, idFiche, type) => {
     const memoire = await elasticMemoireModele.indexMemoire(content);
     const esId = memoire.body['_id'];
 
-    // try {
-    //     const fiche = await FicheRepository.findById(idFiche);
-    //     if (fiche == null) {
-    //         throw new Error('Fiche not found');
-    //     }
-    //     const newMemoire = {
-    //         ESID: esId,
-    //         DATE: new Date(),
-    //         NOMFICHIER: fileName,
-    //         STATUT: 'DRAFT',
-    //         IDFICHE: idFiche,
-    //         IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
-    //     };
-
+    try {
+        const fiche = await FicheRepository.findById(idFiche);
+        if (fiche == null) {
+            throw new Error('Fiche not found');
+        }
+        const newMemoire = {
+            ESID: esId,
+            DATE: new Date(),
+            NOMFICHIER: fileName,
+            STATUT: 'DRAFT',
+            IDFICHE: idFiche,
+            IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
+        };
+        return newMemoire;
     //     const newlyCreatedMemoire = await MemoireRepository.create(newMemoire);
     //     const textsPerPage = await this.getPdfTextPerPage('uploads/' + fileName);
     //     for (let index = 0; index < textsPerPage.length; index++) {
@@ -126,10 +126,10 @@ exports.saveMemoire = async (fileName, idFiche, type) => {
     //         await elasticMemoireModele.indexMemoireTexte(esId, text);
     //     }
     //     return newlyCreatedMemoire;
-    // } catch (err) {
-    //     await this.deleteEsMemoire(esId);
-    //     throw err;
-    // }
+    } catch (err) {
+        await this.deleteEsMemoire(esId);
+        throw err;
+    }
 }
 
 /**
