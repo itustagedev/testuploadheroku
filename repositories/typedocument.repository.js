@@ -9,6 +9,5 @@ exports.findAllActive = async () => {
             STATUT_TYPE: 'ACTIVE'
         }
     });
-
     return types;
 }

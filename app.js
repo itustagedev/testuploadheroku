@@ -8,6 +8,7 @@ const db = require('./models/mysql');
 
 const memoireRoutes = require('./routes/memoire.routes');
 const typeDocumentRoutes = require('./routes/typedocument.routes');
+const testRoutes = require('./routes/testRoutes.routes');
 
 const app = express();
 
@@ -38,6 +39,9 @@ app.use('/api/memoires', memoireRoutes);
 
 // TypeDocument routes api
 app.use('/api/types', typeDocumentRoutes);
+
+// Test api
+app.use('/api/test', testRoutes);
 
 // Launch the server
 const server = http.createServer(app);

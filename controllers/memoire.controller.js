@@ -89,11 +89,11 @@ exports.saveMemoire = async (req, res) => {
         const newMemoire = await memoireService.saveMemoire(fileName, idFiche, type);
         res.status(200).json(newMemoire);
     } catch (err) {
-        logger.error("--------------"+err+"---------------");
-        fs.unlink('./uploads/' + fileName, (error) => {
-            if (err) return res.status(500).json(error);
-            res.status(500).json(err);
-        });
+        // logger.error("--------------"+err+"---------------");
+        // fs.unlink('./uploads/' + fileName, (error) => {
+        //     if (err) res.status(500).json(error);
+        // });
+        res.status(500).json(err);
     }
 }
 
