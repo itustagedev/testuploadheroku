@@ -1,12 +1,4 @@
-const jwt = require('jsonwebtoken');
-const fs = require('fs');
-const config = require('../config/config');
-const memoireService = require('../services/memoire.service');
-const routeService = require('../services/routes.service');
-const logger = require('../helpers/logger');
-const { Client } = require('@elastic/elasticsearch');
-const config = require('../config/config');
-const client = require('../models/elasticsearch/client');
+const client = require('../models/elasticsearch/db');
 
 /**
  * Save Memoire API
