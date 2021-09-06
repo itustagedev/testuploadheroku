@@ -101,10 +101,7 @@ exports.removeUploadedFile = (fileName) => {
  * @param {TypeDocument} type Type document
  */
 exports.saveMemoire = async (fileName, idFiche, type) => {
-    return {
-        "hey" : "ok"
-    }
-    // const content = await this.getPdfText('uploads/' + fileName);
+    const content = await this.getPdfText('uploads/' + fileName);
     // const memoire = await elasticMemoireModele.indexMemoire(content);
     // const esId = memoire.body['_id'];
 
