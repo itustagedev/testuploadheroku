@@ -101,35 +101,38 @@ exports.removeUploadedFile = (fileName) => {
  * @param {TypeDocument} type Type document
  */
 exports.saveMemoire = async (fileName, idFiche, type) => {
-    const content = await this.getPdfText('uploads/' + fileName);
-    const memoire = await elasticMemoireModele.indexMemoire(content);
-    const esId = memoire.body['_id'];
-
-    try {
-        const fiche = await FicheRepository.findById(idFiche);
-        if (fiche == null) {
-            throw new Error('Fiche not found');
-        }
-        const newMemoire = {
-            ESID: esId,
-            DATE: new Date(),
-            NOMFICHIER: fileName,
-            STATUT: 'DRAFT',
-            IDFICHE: idFiche,
-            IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
-        };
-
-        const newlyCreatedMemoire = await MemoireRepository.create(newMemoire);
-        const textsPerPage = await this.getPdfTextPerPage('uploads/' + fileName);
-        for (let index = 0; index < textsPerPage.length; index++) {
-            const text = textsPerPage[index];
-            await elasticMemoireModele.indexMemoireTexte(esId, text);
-        }
-        return newlyCreatedMemoire;
-    } catch (err) {
-        await this.deleteEsMemoire(esId);
-        throw err;
+    return {
+        "hey" : "ok"
     }
+    // const content = await this.getPdfText('uploads/' + fileName);
+    // const memoire = await elasticMemoireModele.indexMemoire(content);
+    // const esId = memoire.body['_id'];
+
+    // try {
+    //     const fiche = await FicheRepository.findById(idFiche);
+    //     if (fiche == null) {
+    //         throw new Error('Fiche not found');
+    //     }
+    //     const newMemoire = {
+    //         ESID: esId,
+    //         DATE: new Date(),
+    //         NOMFICHIER: fileName,
+    //         STATUT: 'DRAFT',
+    //         IDFICHE: idFiche,
+    //         IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
+    //     };
+
+    //     const newlyCreatedMemoire = await MemoireRepository.create(newMemoire);
+    //     const textsPerPage = await this.getPdfTextPerPage('uploads/' + fileName);
+    //     for (let index = 0; index < textsPerPage.length; index++) {
+    //         const text = textsPerPage[index];
+    //         await elasticMemoireModele.indexMemoireTexte(esId, text);
+    //     }
+    //     return newlyCreatedMemoire;
+    // } catch (err) {
+    //     await this.deleteEsMemoire(esId);
+    //     throw err;
+    // }
 }
 
 /**
