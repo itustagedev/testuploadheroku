@@ -106,19 +106,22 @@ exports.saveMemoire = async (fileName, idFiche, type) => {
     const esId = memoire.body['_id'];
 
     try {
-        const fiche = await FicheRepository.findById(idFiche);
-        if (fiche == null) {
-            throw new Error('Fiche not found');
+        // const fiche = await FicheRepository.findById(idFiche);
+        // if (fiche == null) {
+        //     throw new Error('Fiche not found');
+        // }
+        return {
+            "esid" : esId
         }
-        const newMemoire = {
-            ESID: esId,
-            DATE: new Date(),
-            NOMFICHIER: fileName,
-            STATUT: 'DRAFT',
-            IDFICHE: idFiche,
-            IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
-        };
-        return newMemoire;
+        // const newMemoire = {
+        //     ESID: esId,
+        //     DATE: new Date(),
+        //     NOMFICHIER: fileName,
+        //     STATUT: 'DRAFT',
+        //     IDFICHE: idFiche,
+        //     IDTYPEDOCUMENT: type.IDTYPEDOCUMENT
+        // };
+        // return newMemoire;
     //     const newlyCreatedMemoire = await MemoireRepository.create(newMemoire);
     //     const textsPerPage = await this.getPdfTextPerPage('uploads/' + fileName);
     //     for (let index = 0; index < textsPerPage.length; index++) {
